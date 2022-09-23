@@ -48,16 +48,15 @@ M.bracket = function()
 	end
 	if length_start >= 2 then
 		local aux_start_line = string.sub(start_line, (indent * vim.fn.shiftwidth()) + 1)
-		local offset = 0
+		local offset = indent * vim.fn.shiftwidth()
 		if positions.start_pos.line == positions.end_pos.line then
 			aux_start_line = string.sub(start_line, positions.start_pos.col + (indent * vim.fn.shiftwidth()) - 2,
 				positions.end_pos.col + (indent * vim.fn.shiftwidth()) - 2)
-			offset = positions.start_pos.col
+			offset = string.len(string.sub(start_line, 1, positions.start_pos.col + (indent * vim.fn.shiftwidth()) - 2)) - 1
 		end
 		local virtual_text = aux_start_line
-		vim.pretty_print(virtual_text)
 		nsid_opts.virt_text = { { virtual_text, 'BracketUnderline' } }
-		nsid_opts.virt_text_win_col = indent * vim.fn.shiftwidth() + offset
+		nsid_opts.virt_text_win_col = offset
 		vim.api.nvim_buf_set_extmark(0, nsid, positions.start_pos.line - 1, 0, nsid_opts)
 	end
 

@@ -7,7 +7,7 @@ Colorized the bracket scope in your code! *Loosely adaptation of [bracketpair](h
 ![bracket-guide](media/bracket_guide.gif)
 
 ## Requirements
-- Terminal that fully supports **guisp** (*like Wezterm, Kitty, *)
+- Terminal that fully supports **guisp** (like Wezterm or Kitty)
 Or used a Front-End, like [Neovide](https://github.com/neovide/neovide)
 
 ## Installation

@@ -8,7 +8,7 @@ M.init = function()
 	vim.api.nvim_create_autocmd(
 		{ 'CursorMoved', 'CursorMovedI', 'TextChanged', 'TextChangedI' },
 		{
-			pattern = { "*.lua", "*.ts" },
+			pattern = { "*" },
 			callback = function()
 				brGuid.bracket()
 			end

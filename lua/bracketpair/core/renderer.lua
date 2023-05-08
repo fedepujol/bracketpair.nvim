@@ -1,4 +1,4 @@
-local utils = require('guides.utils')
+local utils = require('bracketpair.utils')
 
 local nsid_opts = {
 	virt_text_pos = 'overlay',

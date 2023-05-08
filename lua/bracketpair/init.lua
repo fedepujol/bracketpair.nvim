@@ -1,5 +1,5 @@
-local brGuid = require('guides.core.renderer')
-local utils = require('guides.utils')
+local renderer = require('bracketpair.core.renderer')
+local utils = require('bracketpair.utils')
 
 local M = {}
 
@@ -10,7 +10,7 @@ M.init = function()
 		{
 			pattern = { "*" },
 			callback = function()
-				brGuid.bracket()
+				renderer.bracket()
 			end
 		}
 	)

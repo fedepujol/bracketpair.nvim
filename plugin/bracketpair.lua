@@ -1,1 +1,1 @@
-require('bracketpair')
+require('bracketpair').init()

@@ -3,11 +3,11 @@ local M = {}
 
 ---Set bracket highlights groups
 M.setup_hl = function()
-	local _, hl = pcall(vim.api.nvim_get_hl, 0, { name = "MatchParen", link = true })
-	local color = hl.foreground or "cyan"
+	local _, hl = pcall(vim.api.nvim_get_hl, 0, { name = 'MatchParen', link = true })
+	local color = hl.foreground or 'cyan'
 
-	vim.api.nvim_set_hl(0, "BracketUnderline", { sp = color, underline = true })
-	vim.api.nvim_set_hl(0, "BracketLine", { fg = color, underline = false })
+	vim.api.nvim_set_hl(0, 'BracketUnderline', { sp = color, underline = true })
+	vim.api.nvim_set_hl(0, 'BracketLine', { fg = color, underline = false })
 end
 
 ---@param lineNr number
@@ -23,8 +23,8 @@ end
 M.findPairs = function(line, col)
 	local cLine = vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]
 
-	local sPos = vim.fn.searchpairpos("{", "", "}", "znWb" .. (string.sub(cLine, col, 1) == "{" and "c" or ""))
-	local ePos = vim.fn.searchpairpos("{", "", "}", "znW" .. (string.sub(cLine, col, 1) == "}" and "c" or ""))
+	local sPos = vim.fn.searchpairpos('{', '', '}', 'znWb' .. (string.sub(cLine, col, 1) == '{' and 'c' or ''))
+	local ePos = vim.fn.searchpairpos('{', '', '}', 'znW' .. (string.sub(cLine, col, 1) == '}' and 'c' or ''))
 	return {
 		start_pos = {
 			line = sPos[1],
@@ -41,7 +41,7 @@ end
 ---@param character string
 ---@return string
 M.getChars = function(length, character)
-	local result = ""
+	local result = ''
 
 	for i = 1, length, 1 do
 		result = result .. character
@@ -61,12 +61,12 @@ end
 M.replace_line_content = function(line, space_text)
 	-- avoid nil values coming from line or space_text
 	-- string.gsub takes only string values and will throw annoying errors if it gets nil
-	if not line or line == "" then
+	if not line or line == '' then
 		return line
 	end
-	space_text= space_text or ""
-	line = string.gsub(line, "\v^(\\s*).*", "\\1")
-	line = string.gsub(line, "\t", space_text)
+	space_text= space_text or ''
+	line = string.gsub(line, '\v^(\\s*).*', '\\1')
+	line = string.gsub(line, '\t', space_text)
 	return line
 end
 
@@ -77,8 +77,8 @@ M.calc_visibleEdges = function(positions)
 	local visible_end = positions.end_pos.line
 
 	if positions.end_pos.line - positions.start_pos.line > 100 then
-		visible_start = math.max(positions.start_pos.line, vim.fn.line("w0") - 50)
-		visible_end = math.min(positions.end_pos.line, vim.fn.line("w$") + 50)
+		visible_start = math.max(positions.start_pos.line, vim.fn.line('w0') - 50)
+		visible_end = math.min(positions.end_pos.line, vim.fn.line('w$') + 50)
 	end
 
 	return {
@@ -95,7 +95,7 @@ M.should_skip_char = function(temp_col)
 	local line = vim.api.nvim_get_current_line()
 	local cChar = string.sub(line, col, col)
 
-	return cChar == "}" or cChar == "{"
+	return cChar == '}' or cChar == '{'
 end
 
 return M

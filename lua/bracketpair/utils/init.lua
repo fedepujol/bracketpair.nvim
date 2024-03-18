@@ -4,7 +4,7 @@ local M = {}
 ---Set bracket highlights groups
 M.setup_hl = function()
 	local _, hl = pcall(vim.api.nvim_get_hl, 0, { name = 'MatchParen', link = true })
-	local color = hl.foreground or "cyan"
+	local color = hl.foreground or 'cyan'
 
 	vim.api.nvim_set_hl(0, 'BracketUnderline', { sp = color, underline = true })
 	vim.api.nvim_set_hl(0, 'BracketLine', { fg = color, underline = false })
@@ -28,12 +28,12 @@ M.findPairs = function(line, col)
 	return {
 		start_pos = {
 			line = sPos[1],
-			col = sPos[2]
+			col = sPos[2],
 		},
 		end_pos = {
 			line = ePos[1],
-			col = ePos[2]
-		}
+			col = ePos[2],
+		},
 	}
 end
 
@@ -59,6 +59,12 @@ end
 ---@param space_text string
 ---@return string
 M.replace_line_content = function(line, space_text)
+	-- avoid nil values coming from line or space_text
+	-- string.gsub takes only string values and will throw annoying errors if it gets nil
+	if not line or line == '' then
+		return line
+	end
+	space_text= space_text or ''
 	line = string.gsub(line, '\v^(\\s*).*', '\\1')
 	line = string.gsub(line, '\t', space_text)
 	return line
@@ -77,7 +83,7 @@ M.calc_visibleEdges = function(positions)
 
 	return {
 		visible_start = visible_start,
-		visible_end = visible_end
+		visible_end = visible_end,
 	}
 end
 
